@@ -1,8 +1,65 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Hola mundo
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
+<nav class="navbar navbar-dark bg-dark">
+  <h3 class="text-white">Funciones básicas con Angular</h3>
+</nav>
 
+<div class="container">
+  <div class="row mt-2">
+    <div class="col">
+      <h3 class="text-secondary">Tareas del grupo</h3>
+    </div>
+  </div>
+  <div class="row mt-2">
+
+    <div class="col-12" *ngFor="let tarea of tareas">
+
+      <div class="card border-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header d-flex justify-content-between">
+          <div *ngIf="formEditar !== tarea.id">
+            {{tarea.nombre}}
+          </div>
+          <div *ngIf="formEditar === tarea.id">
+            <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="tarea.nombre">
+          </div>
+          <div class="lapiz" (click)="editar(tarea)">
+            <i class="fas fa-pencil-alt"></i>
+          </div>
+        </div>
+        <div class="card-body text-dark">
+          <h5 class="card-title" *ngIf="formEditar !== tarea.id">{{tarea.titulo}}</h5>
+          <input class="form-control" type="text" placeholder="Título de la tarea" *ngIf="formEditar === tarea.id" [(ngModel)]="tarea.titulo">
+          <p class="card-text" *ngIf="formEditar !== tarea.id">{{tarea.comentario}}</p>
+          <p class="card-text mt-2" *ngIf="formEditar === tarea.id">
+            <textarea class="form-control" rows="3" placeholder="Comentarios" [(ngModel)]="tarea.comentario"></textarea>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-12" *ngIf="tareaNueva">
+      <div class="card border-success mb-3" style="max-width: 18rem;">
+        <div class="card-header">
+          <input class="form-control" type="text" placeholder="Nombre" [(ngModel)]="nuevaTarea.nombre">
+        </div>
+        <div class="card-body text-dark">
+          <h5 class="card-title">
+            <input class="form-control" type="text" placeholder="Título de la tarea" [(ngModel)]="nuevaTarea.titulo">
+          </h5>
+          <p class="card-text">
+            <textarea class="form-control" rows="3" placeholder="Comentarios" [(ngModel)]="nuevaTarea.comentario"></textarea>
+          </p>
+          <button type="button" class="btn btn-outline-success" (click)="agregarTarea()">Agregar</button>
+          <button type="button" class="btn btn-outline-danger" (click)="mostrarForm()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-dark" (click)="mostrarForm()" *ngIf="!tareaNueva">Agregar tarea</button>
+    </div>
+  </div>
+</div>
